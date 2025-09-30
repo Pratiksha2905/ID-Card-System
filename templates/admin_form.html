@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{% if student %}Edit Student{% else %}Add New Student{% endif %}</h2>
+<form method="post">
+    <input name="roll_no" value="{{ student.roll_no if student else '' }}" required placeholder="Roll No">
+    <input name="name" value="{{ student.name if student else '' }}" required placeholder="Name">
+    <input name="division" value="{{ student.division if student else '' }}" placeholder="Division">
+    <input name="year" value="{{ student.year if student else '' }}" placeholder="Year">
+    <select name="status">
+        {% for opt in ['Ready','Not Ready','Missing Details','Collected'] %}
+        <option value="{{ opt }}" {% if student and student.status==opt %}selected{% endif %}>{{ opt }}</option>
+        {% endfor %}
+    </select>
+    <input name="missing_fields" value="{{ student.missing_fields if student else '' }}"
+        placeholder="Missing details (optional)">
+    <button type="submit">Save Changes</button>
+</form>
+<a href="{{ url_for('admin_dashboard') }}" style="display:inline-block; margin-top: 15px;">&larr; Back to Dashboard</a>
+{% endblock %}

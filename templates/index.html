@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Check Your ID Card Status</h2>
+<p>Enter your Roll Number below to see the current status of your ID card.</p>
+<form method="post">
+    <input type="text" name="roll_no" placeholder="Enter Roll No (e.g. SP04230001)" required>
+    <button type="submit">Check Status</button>
+</form>
+
+{% if student is not none %}
+<div class="result">
+    {% if student %}
+    <h3>{{ student.name }} ({{ student.roll_no }})</h3>
+    <p>Status: <strong>{{ student.status }}</strong></p>
+    {% if student.missing_fields %}
+    <p>Missing details: {{ student.missing_fields }}</p>
+    {% endif %}
+    {% if student.status == 'Ready' %}
+    <a class="btn" href="{{ url_for('idcard', student_id=student.id) }}">Preview ID</a>
+    {% endif %}
+    {% else %}
+    <p><strong>No record found.</strong> Please check your Roll Number or contact the office.</p>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}

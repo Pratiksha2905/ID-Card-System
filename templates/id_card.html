@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>ID Card Preview</h2>
+<div class="id-card-container">
+    <div class="id-card-header">
+        <h4>Your College Name</h4>
+    </div>
+    <div class="id-card-photo">
+        <span>Photo</span>
+    </div>
+    <div class="id-card-body">
+        <strong>{{ student.name }}</strong>
+        <p><strong>Roll No:</strong> {{ student.roll_no }}</p>
+        <p><strong>Division:</strong> {{ student.division }} | <strong>Year:</strong> {{ student.year }}</p>
+        <p><strong>Status:</strong> <span style="font-weight: bold; color: green;">{{ student.status }}</span></p>
+    </div>
+</div>
+<div style="text-align: center;">
+    <a href="{{ url_for('index') }}">&larr; Back to Search</a>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Admin Dashboard</h2>
+<a href="{{ url_for('admin_add') }}" class="btn">Add New Student</a>
+<a href="{{ url_for('admin_logout') }}" class="btn" style="background-color: #6c757d;">Logout</a>
+
+<table>
+    <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Division</th>
+        <th>Status</th>
+        <th>Missing Info</th>
+        <th>Actions</th>
+    </tr>
+    {% for s in students %}
+    <tr>
+        <td>{{ s.roll_no }}</td>
+        <td>{{ s.name }}</td>
+        <td>{{ s.division }}</td>
+        <td>{{ s.status }}</td>
+        <td>{{ s.missing_fields or '-' }}</td>
+        <td>
+            <a href="{{ url_for('admin_edit', sid=s.id) }}">Edit</a>
+            <a href="{{ url_for('mark_collected', sid=s.id) }}">Collect</a>
+            <a href="{{ url_for('admin_delete', sid=s.id) }}"
+                onclick="return confirm('Are you sure you want to delete this record?')">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
